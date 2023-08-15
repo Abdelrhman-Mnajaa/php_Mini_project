@@ -1,77 +1,41 @@
-<?php include 'php/db.php' ?>
-
-<?php 
-
-$email = $phone = $fullname = $password = $date='';
-$emailErr = $phoneErr = $fullnameErr = $passwordErr = $dateErr='';
+<?php
 
 
-//Form Submit
-
-if(isset($_POST['submit'])){
-
-   
-    $email=$_POST['email'];
-    
-    $phone=$_POST['phone'];
-   
-    $fullname=$_POST['fullname'];
-    
-    $password=$_POST['password'];
-   
-    $date=$_POST['date'];
-
-// //Validate EMAIL
-// if(empty($_POST['email'])){
-//   $emailErr = 'email is required';
-// }else{
-//   $email = filter_input(INPUT_POST,'email',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-// }
-
-// //Validate mobile
-// if(empty($_POST['mobile'])){
-//   $mobileErr = 'mobile is required';
-// }else{
-//   $mobile = filter_input(INPUT_POST,'mobile',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-// }
-// //Validate fullname
-// if(empty($_POST['fullname'])){
-//   $fullnameErr = 'fullname is required';
-// }else{
-//   $fullname = filter_input(INPUT_POST,'fullname',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-// }
-// //Validate password
-// if(empty($_POST['password'])){
-//   $passwordErr = 'password is required';
-// }else{
-//   $password = filter_input(INPUT_POST,'password',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-// }
-// //Validate DOB
-// if(empty($_POST['date'])){
-//   $dateErr = 'DOB is required';
-// }else{
-//   $date = filter_input(INPUT_POST,'date',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-// }
-
-
-}
-//$email = $phone = $fullname = $password = $date='';
-
-try {
-  
-  $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $sql = "INSERT INTO user (email, mobile,full_name,password,DOB)
-  VALUES ('$email', '$phone','$fullname' ,'$password','2023-08-25')";
-  // use exec() because no results are returned
-  $pdo->exec($sql);
-  echo "New record created successfully";
-  }
-catch(PDOException $e)
-  {
-  echo $sql . "<br>" . $e->getMessage();
-  }
 
 $pdo = null;
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  // Process the form data
+  $servername = "localhost";
+  $username = "Abd";
+  $password = "123456";
+  $dbname = "php_mini";
+//$email = $phone = $fullname = $password = $date='';
+  try {
+      $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+      $email = $_POST['email'];
+      $phone = $_POST['phone'];
+      $fullname = $_POST['fullname'];
+      $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+      $date = $_POST['date'];
+
+      $stmt = $conn->prepare("INSERT INTO user (email, mobile,full_name,password,DOB)
+      VALUES (:email, :phone,:fullname ,:password,:date)");
+      $stmt->bindParam(':email', $email);
+      $stmt->bindParam(':phone', $phone);
+      $stmt->bindParam(':fullname', $fullname);
+      $stmt->bindParam(':password', $password);
+      $stmt->bindParam(':date', $date);
+      $stmt->execute();
+
+      // echo "Registration successful!";
+  } catch (PDOException $e) {
+      echo "Error: " . $e->getMessage();
+  }
+
+  $conn = null;
+}
 
 
 ?>
@@ -103,7 +67,7 @@ margin: 1%;
   <body >
     <div class="container ">
       
-      <form action ="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="POST" class="main-form">
+      <form id = "f" action ="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" class="main-form">
 
         <div class="form-group">
           <h1 class="text-center">Sign Up</h1>
@@ -150,7 +114,7 @@ margin: 1%;
           </div>
             
         <button type="Submit" class="col-12 mt-4 mx-auto btn btn-primary rounded-pill">Sign Up</button>
-        <p class="text-center mt-1">Already have an account?<a href="./Login.html"><strong>Login</strong></a></p>
+        <p class="text-center mt-1">Already have an account?<a href="./Login.php"><strong>Login</strong></a></p>
       </div>
         </div>
       </div>

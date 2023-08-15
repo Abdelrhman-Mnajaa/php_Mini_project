@@ -21,6 +21,7 @@
         <div>
           <table>
               <tr>
+                <td>Id</td>
                 <td>Email</td>
                 <td>Mobile</td>
                 <td>Full Name</td>
@@ -30,6 +31,7 @@
               <?php 
               foreach($row as $i): ?>
                <tr>
+                <td><?php echo $i['id']?> </td>
                 <td><?php echo $i['email']?> </td>
                 <td><?php echo $i['mobile']?> </td>
                 <td><?php echo $i['full_name']?> </td>

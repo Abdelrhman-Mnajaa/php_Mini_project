@@ -1,7 +1,13 @@
 const inputs = document.querySelectorAll('input');
 const date = new Date(document.getElementById('date').value);
 console.log(date.value);
+// document.getElementById("f").addEventListener("click", function(event){
+//   event.preventDefault()
+// });
 
+// document.getElementById("f").addEventListener("onload", function(event){
+//   event.preventDefault()
+// });
 const patterns = {
   username: /^[a-z\d]{5,12}$/i,
   password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$/i,
