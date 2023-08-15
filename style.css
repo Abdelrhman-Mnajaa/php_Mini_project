@@ -1,0 +1,43 @@
+.admin-pic{
+ max-width: 100%;
+ max-height: 100%; 
+
+
+}
+.main-form{
+margin-top: 15%;
+margin-left: 10%;
+margin-right: 10%;
+margin-bottom: 15%;
+
+
+}
+
+.form-control.valid {
+    border-color: green;
+  }
+  
+  .form-control.invalid {
+    border-color: red;
+  }
+  
+  
+.form-control + small {
+    color: red;
+    opacity: 0;
+    height: 0;
+    transition: opacity .2s ease-out;
+  }
+  
+  .form-control.invalid + small {
+    opacity: 1;
+    height: auto;
+    margin-bottom: 20px;
+    transition: opacity .2s ease-out;
+  }
+  
+
+table, th,tr, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
