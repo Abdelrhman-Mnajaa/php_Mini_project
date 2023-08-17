@@ -18,7 +18,7 @@ include 'php/db.php';
   
     <div class="container ">
 
-      <form class="main-form" action="php/db.php" method="POST">
+      <form class="main-form" action="login.php" method="POST">
         <div class="form-group">
           <h1 class="text-center">Login</h1>
           <!-- <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p> -->
